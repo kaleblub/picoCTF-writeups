@@ -1,0 +1,18 @@
+## 13
+
+###### AUTHOR: ALEX FULTON/DANIEL TUNITIS
+##### DESCRIPTION
+Cryptography can be easy, do you know what ROT13 is? `cvpbPGS{abg_gbb_onq_bs_n_ceboyrz}`
+
+##### WALKTHROUGH
+All right, so obviously we just need to run a ROT13 decryption on the flag that they give us. You can do this in whichever way you choose, I chose to make a python script that I can sort of save for later for conveniency:
+```python
+import codecs
+
+text = input("What text do you want to run ROT13 on?\n: ")
+print(codecs.encode(text, 'rot_13'))
+```
+
+
+##### FLAG
+picoCTF{not_too_bad_of_a_problem}

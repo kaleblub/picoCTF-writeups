@@ -1,0 +1,32 @@
+## Python Wrangling
+
+### AUTHOR: SYREAL
+### DESCRIPTION
+Python scripts are invoked kind of like programs in the Terminal... Can you run [this Python script](https://mercury.picoctf.net/static/8e33ede04d02f3765b8c6a6e24d72733/ende.py) using [this password](https://mercury.picoctf.net/static/8e33ede04d02f3765b8c6a6e24d72733/pw.txt) to get [the flag](https://mercury.picoctf.net/static/8e33ede04d02f3765b8c6a6e24d72733/flag.txt.en)?
+
+### WALKTHROUGH
+In this one, we start out provided with three files
+```bash
+ls
+ende.py  flag.txt.en  pw.txt
+```
+pw.txt = Text file with the password in it.
+	-> aa821c16aa821c16aa821c16aa821c16
+flag.txt.en = Text file that holds the encrypted flag. 
+	-> gAAAAABgUAIWjVP_Ne1VPrHlLZKpvfaifN7qlLoN7NEzOpAl55av7sPuV8wQZj9V-6oI_x4L10O8R-b9c19INaTFrlGbT6YxQeLXd2S3FQA8HmFxU9NILpJGEtVPsGpzPAmLSsRwezRX
+ende.py = Python script that we are told to use with the password to decrypt the flag.
+
+We can copy the password for later, and try running 'ende.py':
+```bash
+python3 ende.py
+Usage: ende.py (-e/-d) [file]
+```
+Looks like we just need to add either -e or -d, (we will add '-d' because we are decrypting), we also need to substitute or flag.txt.en in as [file].
+```bash
+python3 ende.py -d flag.txt.en
+Please enter the password:aa821c16aa821c16aa821c16aa821c16
+picoCTF{4p0110_1n_7h3_h0us3_aa821c16}
+```
+
+### FLAG
+picoCTF{4p0110_1n_7h3_h0us3_aa821c16}

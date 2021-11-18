@@ -1,0 +1,28 @@
+## Tab, Tab, Attack
+
+### AUTHOR: SYREAL
+### DESCRIPTION
+Using tabcomplete in the Terminal will add years to your life, esp. when dealing with long rambling directory structures and filenames: [Addadshashanammu.zip](https://mercury.picoctf.net/static/659efd595171e4c40378be6a2e9b7298/Addadshashanammu.zip) 
+
+### WALKTHROUGH
+With the given zip file, run: 
+```bash
+unzip Addadshashanammu.zip
+Archive:  Addadshashanammu.zip
+   creating: Addadshashanammu/
+   creating: Addadshashanammu/Almurbalarammi/
+   creating: Addadshashanammu/Almurbalarammi/Ashalmimilkala/
+   creating: Addadshashanammu/Almurbalarammi/Ashalmimilkala/Assurnabitashpi/
+   creating: Addadshashanammu/Almurbalarammi/Ashalmimilkala/Assurnabitashpi/Maelkashishi/
+   creating: Addadshashanammu/Almurbalarammi/Ashalmimilkala/Assurnabitashpi/Maelkashishi/Onnissiralis/
+   creating: Addadshashanammu/Almurbalarammi/Ashalmimilkala/Assurnabitashpi/Maelkashishi/Onnissiralis/Ularradallaku/
+  inflating: Addadshashanammu/Almurbalarammi/Ashalmimilkala/Assurnabitashpi/Maelkashishi/Onnissiralis/Ularradallaku/fang-of-haynekhtnamet  
+``` 
+That gives us the folder structure within the zip file.
+On the completion of ```unzip```, it prints what folders and files were created and inflated. We get a lengthy descent of 7 folders deep and 1 file at the end. I just copy/pasted the path to the file and ran: 
+```bash
+strings Addadshashanammu/Almurbalarammi/Ashalmimilkala/Assurnabitashpi/Maelkashishi/Onnissiralis/Ularradallaku/fang-of-haynekhtnamet | grep "pico"
+```
+
+### FLAG
+picoCTF{l3v3l_up!_t4k3_4_r35t!_524e3dc4}

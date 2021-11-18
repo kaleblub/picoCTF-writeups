@@ -1,0 +1,33 @@
+## Mind your Ps and Qs
+
+###### AUTHOR: SARA
+##### DESCRIPTION
+In RSA, a small `e` value can be problematic, but what about `N`? Can you decrypt this? [values](https://mercury.picoctf.net/static/51d68e61bb41207a55f24e753f07c5a3/values)
+
+##### WALKTHROUGH
+I started with looking into decrypting RSA, I came across somebody talking about an RSA multi attacks tool, called [RsaCtfTool](https://github.com/Ganapati/RsaCtfTool). With the information we have in the `values` file: 
+
+```bash
+Decrypt my super sick RSA:
+c: 62324783949134119159408816513334912534343517300880137691662780895409992760262021
+n: 1280678415822214057864524798453297819181910621573945477544758171055968245116423923
+e: 65537
+```
+
+And the help from `Mode 1` on the README.md page of RsaCtfTool,
+
+Mode 1 : Attack RSA (specify --publickey or n and e)
+- publickey : public rsa key to crack. You can import multiple public keys with wildcards.
+- uncipher : cipher message to decrypt
+- private : display private rsa key if recovered
+
+We have the `publickey/n`, the cipher message to decrypt, and the `weak privatekey/e`, so the command with our tool will be:
+
+```bash
+python3 RsaCtfTool.py -n 1280678415822214057864524798453297819181910621573945477544758171055968245116423923 --uncipher 62324783949134119159408816513334912534343517300880137691662780895409992760262021 -e 65537
+```
+
+With the output, we get a line encoded as utf-8 so that we can read the flag.
+
+##### FLAG
+picoCTF{sma11_N_n0_g0od_05012767}

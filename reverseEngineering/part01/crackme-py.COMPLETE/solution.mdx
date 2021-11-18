@@ -1,0 +1,74 @@
+## crackme-py
+
+###### AUTHOR: SYREAL
+##### DESCRIPTION
+[crackme.py](https://mercury.picoctf.net/static/fd0e358d4b82695c220c0d6013c11484/crackme.py)
+
+##### WALKTHROUGH
+In this challenge, we get a `python(.py)` file to try to reverse engeneer. </br>
+Here's what's inside:
+```python
+# Hiding this really important number in an obscure piece of code is brilliant!
+# AND it's encrypted!
+# We want our biggest client to know his information is safe with us.
+bezos_cc_secret = "A:4@r%uL`M-^M0c0AbcM-MFE055a4ce`eN"
+
+# Reference alphabet
+alphabet = "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ"+ \
+            "[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~"
+
+def decode_secret(secret):
+    """ROT47 decode
+
+    NOTE: encode and decode are the same operation in the ROT cipher family.
+    """
+
+    # Encryption key
+    rotate_const = 47
+
+    # Storage for decoded secret
+    decoded = ""
+
+    # decode loop
+    for c in secret:
+        index = alphabet.find(c)
+        original_index = (index + rotate_const) % len(alphabet)
+        decoded = decoded + alphabet[original_index]
+
+    print(decoded)
+
+def choose_greatest():
+    """Echo the largest of the two numbers given by the user to the program
+
+    Warning: this function was written quickly and needs proper error handling
+    """
+
+    user_value_1 = input("What's your first number? ")
+    user_value_2 = input("What's your second number? ")
+    greatest_value = user_value_1 # need a value to return if 1 & 2 are equal
+
+    if user_value_1 > user_value_2:
+        greatest_value = user_value_1
+    elif user_value_1 < user_value_2:
+        greatest_value = user_value_2
+
+    print( "The number with largest positive magnitude is "
+        + str(greatest_value) )
+
+choose_greatest()
+```
+As we take a look, we can see at the top an encrypted secret ```bezos_cc_secret = "A:4@r%uL`M-^M0c0AbcM-MFE055a4ce`eN"```, that has to be the flag.
+The further down we go, we can see a decoding function for `ROT47`, there is another function that chooses the greatest number between two numbers. At the end of the code, the `choose_greatest()` function is run, which is seemingly useless because it doesn't have anything to do with the encoding/decoding with `ROT47`. Let's comment out the call to `choose_greatest()` and instead run `decode_secret()` on the encoded secret that was given, `bezos_cc_secret`:
+```python
+# choose_greatest()
+decode_secret(bezos_cc_secret)
+```
+Save it and run it:
+```bash
+$ python3 crackme.py
+picoCTF{1|\/|_4_p34|\|ut_dd2c4616}
+```
+Nice! That did the trick.
+
+##### FLAG
+picoCTF{1|\/|_4_p34|\|ut_dd2c4616}

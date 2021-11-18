@@ -1,0 +1,41 @@
+## The Numbers
+
+###### AUTHOR: DANNY
+##### DESCRIPTION
+The [numbers](https://jupiter.challenges.picoctf.org/static/f209a32253affb6f547a585649ba4fda/the_numbers.png)... what do they mean?
+
+##### WALKTHROUGH
+Let's take a look at the file they gave us.
+
+```bash
+file the_numbers.png
+the_numbers.png: PNG image data, 774 x 433, 8-bit/color RGB, non-interlaced
+```
+Okay, let's see what the image is of:
+
+<Image wide src="https://jupiter.challenges.picoctf.org/static/f209a32253affb6f547a585649ba4fda/the_numbers.png" alt="What do the numbers mean?" />
+
+Let's write those numbers down to start figuring out what they mean.
+`16 9 3 15 3 20 6 { 20 8 5 14 21 13 2 5 18 19 13 1 19 15 14 }`
+Since this is obviously going to be the flag, and we know that the format is `picoCTF{}`, we can see that the two `'C's` are `'3'`, C is the third number of the alphabet, so I believe this is a simple encryption of the numbers according to their corrisponding letter's place in the alphabet. Let's write a small script to do this for us: 
+
+```python
+import string
+alphabet = string.ascii_lowercase
+cipheredLetters = [20, 8, 5, 14, 21, 13, 2, 5, 18, 19, 13, 1, 19, 15, 14]
+decryptedLetters = []
+for letter in cipheredLetters:
+	decryptedLetters.append(alphabet[letter - 1])
+print("".join(decryptedLetters))
+```
+**`Line 1`**: We import the `string` module.</br>
+**`Line 2`**: We use the `ascii_lowercase` method of the `string module` to get a string of the alphabet all in lowercase. (Yes you can totally just type the alphabet out yourself)</br>
+**`Line 3`**: Make a list out of the numbers that are between the brackets in the picture.</br>
+**`Line 4`**: Create an empty list to put each letter as we decrypt them.</br>
+**`Line 5`**: For each letter in the ciphered flag numbers,</br>
+**`Line 6`**: We append the letter of the alphabet string that is 1 less than the cyphered numbers `because lists and strings in python count from 0, not 1. '1' decrypted should be 'a' not 'b', so we have to subtract 1 from the given numbers`.</br>
+**`Line 7`**: After decrypting the whole list, print the whole list as a string.</br>
+Which gives us our flag! 
+
+##### FLAG
+picoCTF{thenumbersmason}

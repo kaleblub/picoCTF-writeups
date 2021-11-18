@@ -1,0 +1,21 @@
+## Lets Warm Up
+
+### AUTHOR: SANJAY C/DANNY TUNITIS
+### DESCRIPTION
+If I told you a word started with 0x70 in hexadecimal, what would it start with in ASCII?
+
+### WALKTHROUGH
+Using the Python Interpreter, we can easily see the given hexadecimal number in Unicode by just inputting the number and pressing Enter: 
+```python
+0x70
+``` 
+which gives us the output of: 112
+
+Next, we can use python's chr() method, which returns a string representing a character whose Unicode code point is an integer.
+```python
+chr(0x70)
+```
+returns: 'p'
+
+### FLAG
+picoCTF{p}

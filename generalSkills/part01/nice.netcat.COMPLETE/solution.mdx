@@ -1,0 +1,76 @@
+## Nice netcat...
+
+### AUTHOR: SYREAL
+### DESCRIPTION
+There is a nice program that you can talk to by using this command in a shell: ***$ nc mercury.picoctf.net 43239***, but it doesn't speak English...
+
+### WALKTHROUGH
+
+When we enter 
+```bash
+nc mercury.picoctf.net 43239
+```
+We get weird output as numbers printed out on many lines.
+```bash
+	112 
+	105 
+	99 
+	111 
+	67 
+	84 
+	70 
+	123 
+	103 
+	48 
+	48 
+	100 
+	95 
+	107 
+	49 
+	116 
+	116 
+	121 
+	33 
+	95 
+	110 
+	49 
+	99 
+	51 
+	95 
+	107 
+	49 
+	116 
+	116 
+	121 
+	33 
+	95 
+	55 
+	99 
+	48 
+	56 
+	50 
+	49 
+	102 
+	53 
+	125 
+	10
+```
+We can save that into an output file with:
+```bash
+nc mercury.picoctf.net 43239 > netcat_output.txt
+```
+Now that we have saved those numbers for later, let's write a python script to translate the ASCII coded numbers into Unicode.
+```python
+ascii_to_unicode = []
+with open('netcat_output.txt', 'r') as f:
+	for line in f.readlines():
+		ascii_to_unicode.append(chr(int(line)))
+	print(''.join(ascii_to_unicode))
+```
+**On Line 1**, we get an empty list ready to add each translated ASCII coded number to.
+**On Line 2**, with the output file(**netcat_output.txt**) open it for reading, refer to it as **'f'**
+**Then On Line 3**, we check each line in all the lines of the output file and for each of those lines **Line 4**, we make sure python recognizes it as an integer instead of a string with 'int()', then we check that integer's Unicode equivalent with 'chr()', and finally, with that value, we append it to our list at the beginning.
+**Finally, On Line 5**, we print the whole list after we turn it into a string, which is our flag.
+
+### FLAG
+picoCTF{g00d_k1tty!_n1c3_k1tty!_7c0821f5}

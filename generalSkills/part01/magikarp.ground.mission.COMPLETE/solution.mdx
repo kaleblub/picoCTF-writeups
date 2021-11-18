@@ -1,0 +1,55 @@
+## Magikarp Ground Mission
+
+### AUTHOR: SYREAL
+### DESCRIPTION
+Do you know how to move between directories and read files in the shell? Start the container, `ssh` to it, and then `ls` once connected to begin. Login via `ssh` as `ctf-player` with the password, `6d448c9c`
+
+### WALKTHROUGH
+To get started, we have to Launch Instance. Once up, we use the provided ssh command below the Description.
+For me this time: 
+```bash
+ssh ctf-player@venus.picoctf.net -p 53053
+```
+It asks if you're sure you want to continue, type 'yes' and hit 'Enter'.
+It will then ask you for the password, use the password they gave, '6d448c9c'.
+
+After that, let's run 'ls' like they tell us to.
+
+```bash 
+ctf-player@pico-chall$ ls
+1of3.flag.txt  instructions-to-2of3.txt
+```
+With both of those text files, let's see what is inside of them.
+```bash
+ctf-player@pico-chall$ cat *
+picoCTF{xxsh_
+Next, go to the root of all things, more succinctly `/`
+```
+Looks like we have 1/3 of the flag, let's follow the instructions they give us.
+
+```bash
+ctf-player@pico-chall$ cd ..
+ctf-player@pico-chall$ ls
+2of3.flag.txt  boot  etc   instructions-to-3of3.txt  lib64  mnt  proc  run   srv  tmp  var
+bin	       dev   home  lib			     media  opt  root  sbin  sys  usr
+```
+There is the second piece! Let's get it and add it to our first piece, while we're at it, let's read the instructions to the final piece of the flag.
+```bash
+ctf-player@pico-chall$ cat 2of3.flag.txt instructions-to-3of3.txt
+0ut_0f_\/\/4t3r_
+Lastly, ctf-player, go home... more succinctly `~`
+```
+Almost there! Let's navigate to '~':
+```bash
+ctf-player@pico-chall$ cd ~
+ctf-player@pico-chall$ ls
+3of3.flag.txt  drop-in
+```
+There's the final piece! Let's get it!
+```bash
+ctf-player@pico-chall$ cat 3of3.flag.txt
+5190b070}
+```
+
+### FLAG
+picoCTF{xxsh_0ut_0f_\/\/4t3r_5190b070}
